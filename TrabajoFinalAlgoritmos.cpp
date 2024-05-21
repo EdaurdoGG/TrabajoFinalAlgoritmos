@@ -1,10 +1,11 @@
 #include <iostream>
 #include <cstdlib>
+#include <string>
 
 using namespace std;
 
 struct Nodo {
-    int dato;
+    string dato;
     Nodo* siguiente;
 };
 
@@ -17,7 +18,7 @@ private:
 public:
     ListaSimple() : primero(nullptr), ultimo(nullptr), size(0) {}
 
-    void insertarElemento(int dato) {
+    void insertarElemento(string dato) {
         Nodo* nuevo = new Nodo();
         nuevo->dato = dato;
         nuevo->siguiente = nullptr;
@@ -49,7 +50,7 @@ public:
         for (Nodo* i = primero; i->siguiente != nullptr; i = i->siguiente) {
             for (Nodo* j = primero; j->siguiente != nullptr; j = j->siguiente) {
                 if (j->dato > j->siguiente->dato) {
-                    int temp = j->dato;
+                    string temp = j->dato;
                     j->dato = j->siguiente->dato;
                     j->siguiente->dato = temp;
                 }
@@ -70,10 +71,10 @@ public:
             }
 
             if (pos != i) {
-                int temp = i->dato;
+                string temp = i->dato;
 
                 while (pos != i) {
-                    int temp2 = pos->dato;
+                    string temp2 = pos->dato;
                     pos->dato = temp;
                     temp = temp2;
                     pos = pos->siguiente;
@@ -85,7 +86,7 @@ public:
         }
     }
 
-    int busquedaBinaria(int elemento) {
+    int busquedaBinaria(string elemento) {
         if (size == 0)
             return -1;
 
@@ -110,7 +111,7 @@ public:
         return -1; // Elemento no encontrado
     }
 
-    bool busquedaSecuencial(int elemento) {
+    bool busquedaSecuencial(string elemento) {
         Nodo* actual = primero;
         while (actual != nullptr) {
             if (actual->dato == elemento)
@@ -121,7 +122,7 @@ public:
     }
 
     void eliminarNodo() {
-        int nodoBuscar;
+        string nodoBuscar;
         cout << "\nIngrese el dato a buscar para eliminarlo: ";
         cin >> nodoBuscar;
 
@@ -164,7 +165,7 @@ public:
     }
 
     void modificarNodo() {
-        int nodoBuscar;
+        string nodoBuscar;
         cout << "\nIngrese el dato a buscar en la lista: ";
         cin >> nodoBuscar;
 
@@ -194,48 +195,8 @@ public:
         }
     }
 
-    void QuickSort() {
-        int* arr = new int[size];
-        Nodo* temp = primero;
-        for (int i = 0; i < size; ++i) {
-            arr[i] = temp->dato;
-            temp = temp->siguiente;
-        }
-
-        QuickSortRecursive(arr, 0, size - 1);
-
-        temp = primero;
-        for (int i = 0; i < size; ++i) {
-            temp->dato = arr[i];
-            temp = temp->siguiente;
-        }
-
-        delete[] arr;
-    }
-
-    void ordenarSeleccion() {
-        Nodo* actual = primero;
-        while (actual != nullptr) {
-            Nodo* minimo = actual;
-            Nodo* siguiente = actual->siguiente;
-            while (siguiente != nullptr) {
-                if (siguiente->dato < minimo->dato) {
-                    minimo = siguiente;
-                }
-                siguiente = siguiente->siguiente;
-            }
-            if (minimo != actual) {
-                int temp = actual->dato;
-                actual->dato = minimo->dato;
-                minimo->dato = temp;
-            }
-            actual = actual->siguiente;
-        }
-    }
-
-
 private:
-    void QuickSortRecursive(int A[], int primero, int ultimo) {
+    void QuickSortRecursive(string A[], int primero, int ultimo) {
         if (primero < ultimo) {
             int pivote = Partition(A, primero, ultimo);
             QuickSortRecursive(A, primero, pivote - 1);
@@ -243,8 +204,8 @@ private:
         }
     }
 
-    int Partition(int A[], int primero, int ultimo) {
-        int pivote = A[ultimo];
+    int Partition(string A[], int primero, int ultimo) {
+        string pivote = A[ultimo];
         int i = primero - 1;
         for (int j = primero; j < ultimo; ++j) {
             if (A[j] < pivote) {
@@ -259,9 +220,8 @@ private:
 };
 
 
-// Codigo Pilas y Colas
 struct nodo {
-    int nro;
+    string nro;
     struct nodo* sgte;
 };
 
@@ -270,13 +230,13 @@ typedef struct nodo* Puntero;
 class Pila {
 public:
     Pila(void);
-    void Apilar(int);
-    int Desapilar(void);
+    void Apilar(string);
+    string Desapilar(void);
     void Cima(void);
     bool PilaVacia(void);
     void MostrarPila(void);
     void DestruirPila(void);
-    int BuscarEnPila(int);
+    int BuscarEnPila(string);
 
 private:
     Puntero cima;
@@ -294,7 +254,7 @@ bool Pila::PilaVacia(void) {
         return false;
 }
 
-void Pila::Apilar(int x) {
+void Pila::Apilar(string x) {
 
     Puntero p_aux;
     p_aux = new struct nodo;
@@ -305,7 +265,7 @@ void Pila::Apilar(int x) {
 }
 
 void Pila::Cima() {
-    int x;
+    string x;
     if (cima == NULL)
         cout << "\n\n\tPila Vacia...!";
     else {
@@ -314,8 +274,8 @@ void Pila::Cima() {
     }
 }
 
-int Pila::Desapilar(void) {
-    int x;
+string Pila::Desapilar(void) {
+    string x;
     Puntero p_aux;
     if (cima == NULL)
         cout << "\n\n\tPila Vacia...!!";
@@ -351,12 +311,12 @@ void Pila::DestruirPila(void) {
 class Cola {
 public:
     Cola(void);
-    void Encolar(int);
-    int Desencolar(void);
+    void Encolar(string);
+    string Desencolar(void);
     bool ColaVacia(void);
     void MostrarCola(void);
     void VaciarCola(void);
-    int BuscarEnCola(int);
+    int BuscarEnCola(string);
 
 private:
     Puntero delante; // puntero al primer elemento de la cola
@@ -374,7 +334,7 @@ bool Cola::ColaVacia() {
         return true;
     else return false;
 }
-void Cola::Encolar(int x) {
+void Cola::Encolar(string x) {
 
     Puntero p_aux;
 
@@ -389,9 +349,9 @@ void Cola::Encolar(int x) {
     atras = p_aux;
 }
 
-int Cola::Desencolar(void) {
+string Cola::Desencolar(void) {
 
-    int n;
+    string n;
     Puntero p_aux;
 
     p_aux = delante;
@@ -424,7 +384,7 @@ void Cola::VaciarCola(void) {
     atras = NULL;
 }
 
-int Pila::BuscarEnPila(int x) {
+int Pila::BuscarEnPila(string x) {
     Puntero p_aux = cima;
     int posicion = 1;
 
@@ -439,7 +399,7 @@ int Pila::BuscarEnPila(int x) {
     return -1; // Si no se encuentra el elemento
 }
 
-int Cola::BuscarEnCola(int x) {
+int Cola::BuscarEnCola(string x) {
     Puntero p_aux = delante;
     int posicion = 1;
 
@@ -461,7 +421,7 @@ int main()
     Pila pila;
 
     int opcion, opcion2, opcion3;
-    int x, elemento;
+    string x, elemento;
 
     do {
         cout << "Porfavor Identificate" << endl;
@@ -493,7 +453,6 @@ int main()
                     cout << "2. Buequeda Por Precio\n";
                     cout << "Opcion: ";
                     cin >> opcion3;
-                    int elemento;
 
                     switch (opcion3)
                     {
@@ -526,7 +485,7 @@ int main()
                     cout << "Carrito actual: ";
                     lista.mostrarLista();
                     break;
-                case 4: 
+                case 4:
                     lista.eliminarNodo();
                     cout << "Producto Eliminado...\n";
                     break;
@@ -544,8 +503,8 @@ int main()
             do {
                 cout << "Bievenido a Los Diamantes y Compania" << endl;
                 cout << "Selecciona lo que quieras hacer" << endl;
-                cout << "1. Reporte de productos desde el mas antiguo\n";
-                cout << "2. Reporte de productos desde el mas actual\n";
+                cout << "1. Reporte de productos desde el mas actual\n";
+                cout << "2. Reporte de productos desde el mas antiguo\n";
                 cout << "3. Reporte de productos por caducidad\n";
                 cout << "4. Agergar Producto\n";
                 cout << "5. Buacar Producto\n";
@@ -556,7 +515,7 @@ int main()
 
                 switch (opcion2)
                 {
-                case 1://Pilas
+                case 1: //Pilas
                     cout << "\n\n\tMostrando Pila\n\n";
                     if (!pila.PilaVacia())
                         pila.MostrarPila();
@@ -605,15 +564,14 @@ int main()
                 case6: //Eliminar elemento de la Cola o de la Pila
                     if (!cola.ColaVacia()) {
                         x = cola.Desencolar();
-                        cout << "\n\n\tNumero " << x << " desencolado con exito.\n";
+                        cout << "\n\n\tEl numero " << x << " ha sido eliminado de la cola.\n";
                     }
-                    else
-                    if (!pila.PilaVacia()) {
+                    else if (!pila.PilaVacia()) {
                         x = pila.Desapilar();
-                        cout << "\n\n\tNumero " << x << " desapilado con exito.\n";
+                        cout << "\n\n\tEl numero " << x << " ha sido eliminado de la pila.\n";
                     }
                     else
-                        cout << "\n\n\tNo encontrado, no se puede eliminar.\n";
+                        cout << "\n\n\tNo hay elementos para eliminar....";
                     break;
                 default:
                     break;
@@ -623,9 +581,13 @@ int main()
                 system("pause");
                 system("cls");
 
-            } while (opcion2 != 6);
+            } while (opcion2 != 7);
+            break;
+        case 3:
+            cout << "\n\n\n\tHasta pronto....\n\n";
             break;
         default:
+            cout << "\n\n\n\tOpcion no valida....\n\n";
             break;
         }
 
@@ -633,7 +595,7 @@ int main()
         system("pause");
         system("cls");
 
-    } while (opcion != 2);
+    } while (opcion != 3);
 
     return 0;
 }
