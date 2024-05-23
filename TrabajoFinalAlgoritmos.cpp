@@ -273,7 +273,7 @@ int main() {
 
     do {
         cout << "Por favor, identificate" << endl;
-        cout << "1. Cliente\n";
+        cout << "1. Provedo\n";
         cout << "2. Vendedor\n";
         cout << "3. Salir\n";
         cout << "Opcion: ";
@@ -288,7 +288,7 @@ int main() {
                 cout << "Selecciona lo que quieras hacer" << endl;
                 cout << "1. Buscar Producto\n";
                 cout << "2. Agregar Producto\n";
-                cout << "3. Ver Carrito\n";
+                cout << "3. Ver Inventario\n";
                 cout << "4. Eliminar Producto\n";
                 cout << "5. Salir\n";
                 cout << "Opcion: ";
@@ -410,26 +410,15 @@ int main() {
 
                     cout << "Ingrese el producto a buscar: ";
                     cin >> x;
-                    if (cola.ColaVacia()) {
-                        cout << "\n\n\tEl inventario esta vacio.\n";
+
+                    if (lista.busquedaSecuencial(x) != -1) {
+                        cout << "\n\n\tEl producto " << x << " se encuentra en el inventario.\n";
                     }
                     else {
-                        int posicion = cola.BuscarEnCola(x);
-                        if (posicion != -1)
-                            cout << "\n\n\tEl Producto " << x << " se encuentra en el inventario.\n";
-                        else {
-                            if (pila.PilaVacia())
-                                cout << "\n\n\tEl inventario esta vacio.\n";
-                            else {
-                                int posicion = pila.BuscarEnPila(x);
-                                if (posicion != -1)
-                                    cout << "\n\n\tEl producto " << x << " se encuentra en el inventario.\n";
-                                else
-                                    cout << "\n\n\tEl producto " << x << " no se encuentra en el inventario.\n";
-                            }
-                        }
+                        cout << "\n\n\tEl producto " << x << " no se encuentra en el inventario.\n";
                     }
                     break;
+
                 case 6:
                     do {
                         system("cls");
@@ -448,6 +437,7 @@ int main() {
                         system("pause");
                         system("cls");
                     } while (x != "0");
+
                     break;
                 case 7:
                     system("cls");
