@@ -25,7 +25,6 @@ public:
     void ordenarInsercion();
     int busquedaSecuencial(string elemento);
     void eliminarNodo(string dato);
-    void guardarPilaEnLista(Pila& pila);
 };
 
 class Pila {
@@ -52,6 +51,11 @@ private:
     Nodo* delante;
     Nodo* atras;
 };
+
+// Variables globales para el inventario
+ListaSimple inventario;
+Pila pilaInventario;
+Cola colaInventario;
 
 void ListaSimple::insertarElemento(string dato) {
     Nodo* nuevo = new Nodo();
@@ -143,17 +147,6 @@ void ListaSimple::eliminarNodo(string dato) {
     }
 }
 
-void ListaSimple::guardarPilaEnLista(Pila& pila) {
-    static bool pilaCopiada = false; // Flag para indicar si la pila ya ha sido copiada
-    if (!pilaCopiada) {
-        Pila pilaAux = pila; // Creamos una copia de la pila solo si aun no se ha copiado
-        while (!pilaAux.PilaVacia()) {
-            insertarElemento(pilaAux.Desapilar());
-
-        }
-        pilaCopiada = true; // Establecemos el flag como true para indicar que la pila ha sido copiada
-    }
-}
 
 
 Pila::Pila(void) {
@@ -367,7 +360,7 @@ int main() {
                 cout << "Selecciona lo que quieras hacer" << endl;
                 cout << "1. Reporte de productos desde el mas actual\n";
                 cout << "2. Reporte de productos desde el mas antiguo\n";
-                cout << "3. Reporte de productos por caducidad\n";
+                cout << "3. Mostrar Inventario\n";
                 cout << "4. Agregar Producto\n";
                 cout << "5. Buscar Producto\n";
                 cout << "6. Eliminar Producto\n";
@@ -395,6 +388,9 @@ int main() {
                         cout << "\n\n\tReporte vacio.\n";
                     break;
                 case 3:
+                    cout << "\n\n\tMostrando Inventario\n\n";
+                    lista.ordenarInsercion();
+                    lista.mostrarLista();
                     break;
                 case 4:
                     system("cls");
@@ -403,6 +399,7 @@ int main() {
                     cin >> x;
                     cola.Encolar(x);
                     pila.Apilar(x);
+                    lista.insertarElemento(x);
                     cout << "\nElemento " << x << " agregado al inventario con exito.\n";
                     break;
                 case 5:
@@ -420,24 +417,15 @@ int main() {
                     break;
 
                 case 6:
-                    do {
                         system("cls");
 
                         cout << "\n\n\tMostrando Inventario\n\n";
-                        lista.guardarPilaEnLista(pila);
                         lista.ordenarInsercion();
                         lista.mostrarLista();
                         cout << "\nIngresa el elemento a eliminar (o ingresa 0 para volver al menu anterior): ";
                         cin >> x;
-                        if (x != "0") {
                             lista.eliminarNodo(x);
                             cout << "\n\n\tEl producto " << x << " ha sido eliminado del inventario.\n";
-                        }
-                        cout << endl << endl;
-                        system("pause");
-                        system("cls");
-                    } while (x != "0");
-
                     break;
                 case 7:
                     system("cls");
